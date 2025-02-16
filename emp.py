@@ -6,10 +6,8 @@ def check_attendance():
     Function to check the attendance of an employee.
     It randomly determines whether the employee is present or absent.
     """
-    print("Welcome to Employee Wages Computation Program on Master Branch")
-    
+    print("Welcome to Employee Wages Computation Program on Master Branch")   
     attendance = random.choice([1, 0])  # Randomly selects 1 (Present) or 0 (Absent)
-    
     if attendance == 1:
         print("The employee is Present")
     else:

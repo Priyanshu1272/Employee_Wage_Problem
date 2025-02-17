@@ -3,32 +3,34 @@ import random
 def check_attendance():
     """
     Function to check the attendance of an employee.
-    It randomly determines whether the employee is present or absent.
+    It randomly determines whether the employee is present, absent, or working part-time.
     """
-    print("Welcome to Employee Wages Computation Program on Master Branch")
-    attendance = random.choice([1, 0])  # Randomly selects 1 (Present) or 0 (Absent)
+    attendance = random.choice([0, 1, 2])  # 0: Absent, 1: Full-time, 2: Part-time
     return attendance
 
-def emp_daily_wage():
+def calculate_wage(emp_type):
     """
-    Function to calculate the daily wage of an employee.
-    Assumes wage per hour is 20 and full day is 8 hours.
-    Also calculates part-time wage assuming part-time work is 4 hours.
+    Function to calculate the wage of an employee based on work type.
+    Implements switch-case logic using dictionary mapping.
     """
     wage_per_hr = 20
-    full_day_hr = 8
-    part_time_hr = 4  # Updated part-time hour assumption
-    emp_check = check_attendance()
-    if emp_check == 1:
-        full_day_wage = wage_per_hr * full_day_hr
-        part_time_wage = wage_per_hr * part_time_hr
-        print(f"The Employee is present for full day so the daily wage is : {full_day_wage}")
-        print(f"The Employee is present for part-time so the wage is : {part_time_wage}")
-    else:
-        print("Employee is absent for the day so the daily and part-time wage is: 0")
+    work_hours = {
+        0: 0,   # Absent
+        1: 8,   # Full-time
+        2: 4    # Part-time
+    }
+    daily_wage = wage_per_hr * work_hours.get(emp_type, 0)
+    switch_case = {
+        0: "Employee is absent for the day so the daily wage is: 0",
+        1: f"The Employee is present for full day so the daily wage is : {daily_wage}",
+        2: f"The Employee is present for part-time so the wage is : {daily_wage}"
+    }    
+    print(switch_case.get(emp_type, "Invalid employee type"))
 
 if __name__ == "__main__":
-    emp_daily_wage()
+    emp_type = check_attendance()
+    calculate_wage(emp_type)
+
 
 
 

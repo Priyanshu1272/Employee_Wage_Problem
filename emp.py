@@ -20,16 +20,24 @@ def calculate_wage(emp_type):
         2: 4    # Part-time
     }
     daily_wage = wage_per_hr * work_hours.get(emp_type, 0)
-    switch_case = {
-        0: "Employee is absent for the day so the daily wage is: 0",
-        1: f"The Employee is present for full day so the daily wage is : {daily_wage}",
-        2: f"The Employee is present for part-time so the wage is : {daily_wage}"
-    }    
-    print(switch_case.get(emp_type, "Invalid employee type"))
+    return daily_wage
+
+def calculate_monthly_wage():
+    """
+    Function to calculate the total wage for a month.
+    Assumes 20 working days in a month.
+    """
+    total_wage = 0
+    working_days = 20    
+    for day in range(1, working_days + 1):
+        emp_type = check_attendance()
+        daily_wage = calculate_wage(emp_type)
+        total_wage += daily_wage
+        print(f"Day {day}: {daily_wage} Rs")    
+    print(f"Total wage for the month: {total_wage} Rs")
 
 if __name__ == "__main__":
-    emp_type = check_attendance()
-    calculate_wage(emp_type)
+    calculate_monthly_wage()
 
 
 

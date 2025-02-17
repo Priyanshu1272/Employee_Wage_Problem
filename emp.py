@@ -1,3 +1,4 @@
+
 import random
 
 def check_attendance():
@@ -20,26 +21,29 @@ def calculate_wage(emp_type):
         2: 4    # Part-time
     }
     daily_wage = wage_per_hr * work_hours.get(emp_type, 0)
-    return daily_wage
+    return daily_wage, work_hours.get(emp_type, 0)
 
-def calculate_monthly_wage():
+def calculate_wage_with_conditions():
     """
-    Function to calculate the total wage for a month.
-    Assumes 20 working days in a month.
+    Function to calculate wages until a condition of total working hours (100)
+    or total working days (20) is reached.
     """
     total_wage = 0
-    working_days = 20    
-    for day in range(1, working_days + 1):
+    total_hours = 0
+    total_days = 0
+    max_hours = 100
+    max_days = 20
+    
+    while total_days < max_days and total_hours < max_hours:
         emp_type = check_attendance()
-        daily_wage = calculate_wage(emp_type)
+        daily_wage, hours_worked = calculate_wage(emp_type)      
+        if total_hours + hours_worked > max_hours:
+            break        
         total_wage += daily_wage
-        print(f"Day {day}: {daily_wage} Rs")    
-    print(f"Total wage for the month: {total_wage} Rs")
+        total_hours += hours_worked
+        total_days += 1
+        print(f"Day {total_days}: {daily_wage} Rs, Hours Worked: {hours_worked}")    
+    print(f"Total wage earned: {total_wage} Rs in {total_days} days and {total_hours} hours")
 
 if __name__ == "__main__":
-    calculate_monthly_wage()
-
-
-
-
-
+    calculate_wage_with_conditions()
